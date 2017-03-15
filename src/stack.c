@@ -256,7 +256,7 @@ char* stack_peek_string(stack s) {
 }
 
 bool stack_is_empty(stack s) {
-	return stack_size(s);
+	return !stack_size(s);
 }
 
 size_t stack_size(stack s) {
