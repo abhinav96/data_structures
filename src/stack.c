@@ -28,167 +28,167 @@ stack new_stack() {
 	return new_s;
 }
 
-void stack_push(stack s, void *data, size_t size) {
+void stack_push_generic(stack s, void *data, size_t size) {
 	stack_node new_stn = new_stack_node(data, size);
 	new_stn->next = s->head;
 	s->head = new_stn;
 	++s->size;
 }
 
-void stack_push_char(stack s, char c) {
-	stack_push(s, &c, sizeof(char));
+void stack_push_char(stack s, char data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_uchar(stack s, unsigned char c) {
-	stack_push(s, &c, sizeof(unsigned char));
+void stack_push_uchar(stack s, unsigned char data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_short(stack s, short si) {
-	stack_push(s, &si, sizeof(short));
+void stack_push_short(stack s, short data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_ushort(stack s, unsigned short si) {
-	stack_push(s, &si, sizeof(unsigned short));
+void stack_push_ushort(stack s, unsigned short data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_int(stack s, int i) {
-	stack_push(s, &i, sizeof(int));
+void stack_push_int(stack s, int data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_uint(stack s, unsigned int i) {
-	stack_push(s, &i, sizeof(unsigned int));
+void stack_push_uint(stack s, unsigned int data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_long(stack s, long l) {
-	stack_push(s, &l, sizeof(long));
+void stack_push_long(stack s, long data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_ulong(stack s, unsigned long l) {
-	stack_push(s, &l, sizeof(unsigned long));
+void stack_push_ulong(stack s, unsigned long data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_long_long(stack s, long long ll) {
-	stack_push(s, &ll, sizeof(long long));
+void stack_push_long_long(stack s, long long data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_ulong_long(stack s, unsigned long long ll) {
-	stack_push(s, &ll, sizeof(unsigned long long));
+void stack_push_ulong_long(stack s, unsigned long long data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_float(stack s, float f) {
-	stack_push(s, &f, sizeof(float));
+void stack_push_float(stack s, float data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_double(stack s, double d) {
-	stack_push(s, &d, sizeof(double));
+void stack_push_double(stack s, double data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_long_double(stack s, long double ld) {
-	stack_push(s, &ld, sizeof(long double));
+void stack_push_long_double(stack s, long double data) {
+	stack_push_generic(s, &data, sizeof(data));
 }
 
-void stack_push_string(stack s, char *str) {
-	stack_push(s, str, strlen(str));
+void stack_push_string(stack s, char *data) {
+	stack_push_generic(s, data, strlen(data));
 }
 
 void* stack_pop(stack s) {
-	stack_node fr = s->head;
-	void *data = fr->data;
+	stack_node free_node = s->head;
+	void *data = free_node->data;
 	s->head = s->head->next;
 	--s->size;
-	free(fr);
+	free(free_node);
 	return data;
 }
 
 char stack_pop_char(stack s) {
-	char *c = stack_pop(s);
-	char return_char = *c;
-	free(c);
-	return return_char;
+	char *data = stack_pop(s);
+	char return_data = *data;
+	free(data);
+	return return_data;
 }
 
 unsigned char stack_pop_uchar(stack s) {
-	unsigned char *c = stack_pop(s);
-	unsigned char return_char = *c;
-	free(c);
-	return return_char;
+	unsigned char *data = stack_pop(s);
+	unsigned char return_data = *data;
+	free(data);
+	return return_data;
 }
 
 short stack_pop_short(stack s) {
-	short *sh = stack_pop(s);
-	short return_short = *sh;
-	free(sh);
-	return return_short;
+	short *data = stack_pop(s);
+	short return_data = *data;
+	free(data);
+	return return_data;
 }
 
 unsigned short stack_pop_ushort(stack s) {
-	unsigned short *sh = stack_pop(s);
-	unsigned short return_short = *sh;
-	free(sh);
-	return return_short;
+	unsigned short *data = stack_pop(s);
+	unsigned short return_data = *data;
+	free(data);
+	return return_data;
 }
 
 int stack_pop_int(stack s) {
-	int *i = stack_pop(s);
-	int return_int = *i;
-	free(i);
-	return return_int;
+	int *data = stack_pop(s);
+	int return_data = *data;
+	free(data);
+	return return_data;
 }
 
 unsigned int stack_pop_uint(stack s) {
-	unsigned int *i = stack_pop(s);
-	unsigned int return_int = *i;
-	free(i);
-	return return_int;
+	unsigned int *data = stack_pop(s);
+	unsigned int return_data = *data;
+	free(data);
+	return return_data;
 }
 
 long stack_pop_long(stack s) {
-	long *l = stack_pop(s);
-	long return_long = *l;
-	free(l);
-	return return_long;
+	long *data = stack_pop(s);
+	long return_data = *data;
+	free(data);
+	return return_data;
 }
 
 unsigned long stack_pop_ulong(stack s) {
-	unsigned long *l = stack_pop(s);
-	unsigned long return_long = *l;
-	free(l);
-	return return_long;
+	unsigned long *data = stack_pop(s);
+	unsigned long return_data = *data;
+	free(data);
+	return return_data;
 }
 
 long long stack_pop_long_long(stack s) {
-	long long *ll = stack_pop(s);
-	long long return_long_long = *ll;
-	free(ll);
-	return return_long_long;
+	long long *data = stack_pop(s);
+	long long return_data = *data;
+	free(data);
+	return return_data;
 }
 
 unsigned long long stack_pop_ulong_long(stack s) {
-	unsigned long long *ll = stack_pop(s);
-	unsigned long long return_long_long = *ll;
-	free(ll);
-	return return_long_long;
+	unsigned long long *data = stack_pop(s);
+	unsigned long long return_data = *data;
+	free(data);
+	return return_data;
 }
 
 float stack_pop_float(stack s) {
-	float *fl = stack_pop(s);
-	float return_float = *fl;
-	free(fl);
-	return return_float;
+	float *data = stack_pop(s);
+	float return_data = *data;
+	free(data);
+	return return_data;
 }
 
 double stack_pop_double(stack s) {
-	double *d = stack_pop(s);
-	double return_double = *d;
-	free(d);
-	return return_double;
+	double *data = stack_pop(s);
+	double return_data = *data;
+	free(data);
+	return return_data;
 }
 
 long double stack_pop_long_double(stack s) {
-	long double *ld = stack_pop(s);
-	long double return_long_double = *ld;
-	free(ld);
-	return return_long_double;
+	long double *data = stack_pop(s);
+	long double return_data = *data;
+	free(data);
+	return return_data;
 }
 
 char* stack_pop_string(stack s) {

@@ -4,23 +4,40 @@
 
 typedef struct _stack* stack;
 
+#define stack_push(X, Y) _Generic((Y), \
+	char*: stack_push_string, \
+	char: stack_push_char, \
+	unsigned char: stack_push_uchar, \
+	short: stack_push_short, \
+	unsigned short: stack_push_ushort, \
+	int: stack_push_int, \
+	unsigned int: stack_push_uint, \
+	long: stack_push_long, \
+	unsigned long: stack_push_ulong, \
+	long long: stack_push_long_long, \
+	unsigned long long: stack_push_ulong_long, \
+	float: stack_push_float, \
+	double: stack_push_double, \
+	long double: stack_push_long_double \
+	)(X, Y)
+
 stack new_stack();
 
-void stack_push(stack s, void *data, size_t size);
-void stack_push_char(stack s, char c);
-void stack_push_uchar(stack s, unsigned char c);
-void stack_push_short(stack s, short si);
-void stack_push_ushort(stack s, unsigned short si);
-void stack_push_int(stack s, int i);
-void stack_push_uint(stack s, unsigned int i);
-void stack_push_long(stack s, long l);
-void stack_push_ulong(stack s, unsigned long l);
-void stack_push_long_long(stack s, long long ll);
-void stack_push_ulong_long(stack s, unsigned long long ll);
-void stack_push_float(stack s, float f);
-void stack_push_double(stack s, double d);
-void stack_push_long_double(stack s, long double ld);
-void stack_push_string(stack s, char *str);
+void stack_push_generic(stack s, void *data, size_t size);
+void stack_push_char(stack s, char data);
+void stack_push_uchar(stack s, unsigned char data);
+void stack_push_short(stack s, short data);
+void stack_push_ushort(stack s, unsigned short data);
+void stack_push_int(stack s, int data);
+void stack_push_uint(stack s, unsigned int data);
+void stack_push_long(stack s, long data);
+void stack_push_ulong(stack s, unsigned long data);
+void stack_push_long_long(stack s, long long data);
+void stack_push_ulong_long(stack s, unsigned long long data);
+void stack_push_float(stack s, float data);
+void stack_push_double(stack s, double data);
+void stack_push_long_double(stack s, long double data);
+void stack_push_string(stack s, char *data);
 
 void* stack_pop(stack s);
 char stack_pop_char(stack s);
