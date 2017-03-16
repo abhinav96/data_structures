@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ $# -eq 1 ];
+then
+	filename=$1;
+else
+	printf "Enter program name\n"
+	read filename
+fi
+if [ -f $filename ];
+then
+	deps="";
+	for i in $(sed -n 's/\(.*\)include\/\(.*\)\.h\(\"\|\>\)/\2/p' $filename); do
+		deps=$deps" "$i"\.o";
+	done
+	sed -i "s/DEPS =.*/DEPS =$deps/" makefile
+	exit 0;
+else
+	printf "File does not exist\n";
+	exit 1;
+fi

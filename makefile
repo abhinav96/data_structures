@@ -1,11 +1,12 @@
 CC = gcc
 CFLAGS = -g -Wall
 TARGET = program
+DEPS =
 
 default: $(TARGET)
 
-$(TARGET): $(TARGET).c
-	$(CC) $(CFLAGS) $(TARGET).c -o $(TARGET)
+$(TARGET): $(TARGET).c $(DEPS)
+	$(CC) $(CFLAGS) $(TARGET).c $(DEPS) -o $(TARGET)
 
 graph.o: src/graph.c include/graph.h linked_list.o hash_table.o
 	$(CC) $(CFLAGS) linked_list.o hash_table.o -c src/graph.c
@@ -26,4 +27,4 @@ stack.o: src/stack.c include/stack.h
 	$(CC) $(CFLAGS) -c src/stack.c
 
 clean:
-	rm *.o
+	rm *.o $(TARGET)
