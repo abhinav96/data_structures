@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -g -Wall
-TARGET = program
+CFLAGS = -g -Wall -std=c11
+TARGET =
 DEPS =
 
 default: $(TARGET)

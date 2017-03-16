@@ -6,6 +6,8 @@ else
 	printf "Enter program name\n"
 	read filename
 fi
+target=$filename;
+filename=$filename".c";
 if [ -f $filename ];
 then
 	deps="";
@@ -13,6 +15,7 @@ then
 		deps=$deps" "$i"\.o";
 	done
 	sed -i "s/DEPS =.*/DEPS =$deps/" makefile
+	sed -i "s/TARGET =.*/TARGET = $target/" makefile
 	exit 0;
 else
 	printf "File does not exist\n";
