@@ -9,10 +9,10 @@ $(TARGET): $(TARGET).c $(DEPS)
 	$(CC) $(CFLAGS) $(TARGET).c $(DEPS) -o $(TARGET)
 
 graph.o: src/graph.c include/graph.h linked_list.o hash_table.o
-	$(CC) $(CFLAGS) linked_list.o hash_table.o -c src/graph.c
+	$(CC) $(CFLAGS) -c src/graph.c
 
 hash_table.o: src/hash_table.c include/hash_table.h linked_list.o
-	$(CC) $(CFLAGS) linked_list.o -c src/hash_table.c
+	$(CC) $(CFLAGS) -c src/hash_table.c
 
 linked_list.o: src/linked_list.c include/linked_list.h
 	$(CC) $(CFLAGS) -c src/linked_list.c
