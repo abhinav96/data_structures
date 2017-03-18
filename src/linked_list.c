@@ -162,6 +162,62 @@ void* linked_list_get(linked_list list, size_t index) {
 	return NULL;
 }
 
+char linked_list_get_char(linked_list list, size_t index) {
+	return *(char *)linked_list_get(list, index);
+}
+
+unsigned char linked_list_get_uchar(linked_list list, size_t index) {
+	return *(unsigned char *)linked_list_get(list, index);
+}
+
+short linked_list_get_short(linked_list list, size_t index) {
+	return *(short *)linked_list_get(list, index);
+}
+
+unsigned short linked_list_get_ushort(linked_list list, size_t index) {
+	return *(unsigned short *)linked_list_get(list, index);
+}
+
+int linked_list_get_int(linked_list list, size_t index) {
+	return *(int *)linked_list_get(list, index);
+}
+
+unsigned int linked_list_get_uint(linked_list list, size_t index) {
+	return *(unsigned int *)linked_list_get(list, index);
+}
+
+long linked_list_get_long(linked_list list, size_t index) {
+	return *(long *)linked_list_get(list, index);
+}
+
+unsigned long linked_list_get_ulong(linked_list list, size_t index) {
+	return *(unsigned long *)linked_list_get(list, index);
+}
+
+long long linked_list_get_long_long(linked_list list, size_t index) {
+	return *(long long *)linked_list_get(list, index);
+}
+
+unsigned long long linked_list_get_ulong_long(linked_list list, size_t index) {
+	return *(unsigned long long *)linked_list_get(list, index);
+}
+
+float linked_list_get_float(linked_list list, size_t index) {
+	return *(float *)linked_list_get(list, index);
+}
+
+double linked_list_get_double(linked_list list, size_t index) {
+	return *(double *)linked_list_get(list, index);
+}
+
+long double linked_list_get_long_double(linked_list list, size_t index) {
+	return *(long double *)linked_list_get(list, index);
+}
+
+char* linked_list_get_string(linked_list list, size_t index) {
+	return linked_list_get(list, index);
+}
+
 void* linked_list_remove(linked_list list, size_t index) {
 	void* data = NULL;
 	if (list->length == 0) {

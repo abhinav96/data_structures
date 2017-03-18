@@ -10,6 +10,20 @@ void linked_list_add(linked_list list, void *data, size_t size);
 void linked_list_add_at(linked_list list, void *data, size_t size, size_t index);
 
 void* linked_list_get(linked_list list, size_t index);
+char linked_list_get_char(linked_list list, size_t index);
+unsigned char linked_list_get_uchar(linked_list list, size_t index);
+short linked_list_get_short(linked_list list, size_t index);
+unsigned short linked_list_get_ushort(linked_list list, size_t index);
+int linked_list_get_int(linked_list list, size_t index);
+unsigned int linked_list_get_uint(linked_list list, size_t index);
+long linked_list_get_long(linked_list list, size_t index);
+unsigned long linked_list_get_ulong(linked_list list, size_t index);
+long long linked_list_get_long_long(linked_list list, size_t index);
+unsigned long long linked_list_get_ulong_long(linked_list list, size_t index);
+float linked_list_get_float(linked_list list, size_t index);
+double linked_list_get_double(linked_list list, size_t index);
+long double linked_list_get_long_double(linked_list list, size_t index);
+char* linked_list_get_string(linked_list list, size_t index);
 
 void* linked_list_remove(linked_list list, size_t index);
 char linked_list_remove_char(linked_list list, size_t index);
