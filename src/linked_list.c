@@ -212,6 +212,101 @@ void* linked_list_remove(linked_list list, size_t index) {
 	return data;
 }
 
+char linked_list_remove_char(linked_list list, size_t index) {
+	char *data = linked_list_remove(list, index);
+	char return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned char linked_list_remove_uchar(linked_list list, size_t index) {
+	unsigned char *data = linked_list_remove(list, index);
+	unsigned char return_data = *data;
+	free(data);
+	return return_data;
+}
+
+short linked_list_remove_short(linked_list list, size_t index) {
+	short *data = linked_list_remove(list, index);
+	short return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned short linked_list_remove_ushort(linked_list list, size_t index) {
+	unsigned short *data = linked_list_remove(list, index);
+	unsigned short return_data = *data;
+	free(data);
+	return return_data;
+}
+
+int linked_list_remove_int(linked_list list, size_t index) {
+	int *data = linked_list_remove(list, index);
+	int return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned int linked_list_remove_uint(linked_list list, size_t index) {
+	unsigned int *data = linked_list_remove(list, index);
+	unsigned int return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long linked_list_remove_long(linked_list list, size_t index) {
+	long *data = linked_list_remove(list, index);
+	long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned long linked_list_remove_ulong(linked_list list, size_t index) {
+	unsigned long *data = linked_list_remove(list, index);
+	unsigned long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long long linked_list_remove_long_long(linked_list list, size_t index) {
+	long long *data = linked_list_remove(list, index);
+	long long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned long long linked_list_remove_ulong_long(linked_list list, size_t index) {
+	unsigned long long *data = linked_list_remove(list, index);
+	unsigned long long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+float linked_list_remove_float(linked_list list, size_t index) {
+	float *data = linked_list_remove(list, index);
+	float return_data = *data;
+	free(data);
+	return return_data;
+}
+
+double linked_list_remove_double(linked_list list, size_t index) {
+	double *data = linked_list_remove(list, index);
+	double return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long double linked_list_remove_long_double(linked_list list, size_t index) {
+	long double *data = linked_list_remove(list, index);
+	long double return_data = *data;
+	free(data);
+	return return_data;
+}
+
+char* linked_list_remove_string(linked_list list, size_t index) {
+	return linked_list_remove(list, index);
+}
+
 void linked_list_add_at(linked_list list, void *data, size_t size, size_t index) {
 	if (index > list->length) {
 		return;
