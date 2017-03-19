@@ -66,7 +66,7 @@ void hash_table_set(hash_table ht, char *key, void *value, size_t size) {
 		p->key = key_copy;
 		p->value = value_copy;
 		p->size = size;
-		linked_list_add(bucket_list, p, sizeof(*p));
+		linked_list_add_generic(bucket_list, p, sizeof(*p));
 		free(p);
 		++ht->no_of_pairs;
 
@@ -153,7 +153,7 @@ void hash_table_rehash(hash_table ht, size_t no_of_buckets) {
 					buckets[key_hash] = new_linked_list();
 				}
 
-				linked_list_add(buckets[key_hash], temp_pair, sizeof(*temp_pair));
+				linked_list_add_generic(buckets[key_hash], temp_pair, sizeof(*temp_pair));
 				free(temp_pair);
 			}
 			free(ht->buckets[i]);

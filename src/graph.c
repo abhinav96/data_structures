@@ -50,7 +50,7 @@ edge new_edge(char *from, char *to, void *data, size_t size) {
 
 void graph_add_vertex(graph g, char *label, void *data, size_t size) {
 	if (hash_table_get(g->vertices, label) == NULL) {
-		linked_list_add(g->labels, label, strlen(label) + 1);
+		linked_list_add_generic(g->labels, label, strlen(label) + 1);
 		vertex vx = new_vertex();
 		void *data_copy = malloc(size);
 		memcpy(data_copy, data, size);
@@ -79,7 +79,7 @@ void vertex_connect(graph g, char *label1, char *label2, void *data, size_t size
 	vertex vx2 = hash_table_get(g->vertices, label2);
 	if (vx1 != NULL && vx2 != NULL) {
 		edge ed = new_edge(label1, label2, data, size);
-		linked_list_add(vx1->connections, ed, sizeof(*ed));
+		linked_list_add_generic(vx1->connections, ed, sizeof(*ed));
 		free(ed);
 	}
 }

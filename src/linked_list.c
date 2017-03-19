@@ -66,7 +66,7 @@ void reset_middle(linked_list list) {
 	}
 }
 
-void linked_list_add(linked_list list, void *data, size_t size) {
+void linked_list_add_generic(linked_list list, void *data, size_t size) {
 	node new_el = new_node(data, size);
 	if (list->first == NULL) {
 		list->first = new_el;
@@ -78,6 +78,62 @@ void linked_list_add(linked_list list, void *data, size_t size) {
 	}
 	++list->length;
 	reset_middle(list);
+}
+
+void linked_list_add_char(linked_list list, char data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_uchar(linked_list list, unsigned char data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_short(linked_list list, short data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_ushort(linked_list list, unsigned short data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_int(linked_list list, int data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_uint(linked_list list, unsigned int data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_long(linked_list list, long data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_ulong(linked_list list, unsigned long data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_long_long(linked_list list, long long data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_ulong_long(linked_list list, unsigned long long data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_float(linked_list list, float data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_double(linked_list list, double data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_long_double(linked_list list, long double data) {
+	linked_list_add_generic(list, &data, sizeof(data));
+}
+
+void linked_list_add_string(linked_list list, char *data) {
+	linked_list_add_generic(list, data, strlen(data));
 }
 
 node linked_list_get_node_at_index(linked_list list, size_t index) {
@@ -363,12 +419,12 @@ char* linked_list_remove_string(linked_list list, size_t index) {
 	return linked_list_remove(list, index);
 }
 
-void linked_list_add_at(linked_list list, void *data, size_t size, size_t index) {
+void linked_list_add_generic_at(linked_list list, void *data, size_t size, size_t index) {
 	if (index > list->length) {
 		return;
 	}
 	if (index == list->length) {
-		linked_list_add(list, data, size);
+		linked_list_add_generic(list, data, size);
 		return;
 	}
 	node new_el = new_node(data, size);
@@ -400,6 +456,62 @@ void linked_list_add_at(linked_list list, void *data, size_t size, size_t index)
 	list->iterator = new_el;
 	list->iterator_index = index;
 	return;
+}
+
+void linked_list_add_char_at(linked_list list, char data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_uchar_at(linked_list list, unsigned char data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_short_at(linked_list list, short data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_ushort_at(linked_list list, unsigned short data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_int_at(linked_list list, int data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_uint_at(linked_list list, unsigned int data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_long_at(linked_list list, long data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_ulong_at(linked_list list, unsigned long data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_long_long_at(linked_list list, long long data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_ulong_long_at(linked_list list, unsigned long long data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_float_at(linked_list list, float data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_double_at(linked_list list, double data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_long_double_at(linked_list list, long double data, size_t index) {
+	linked_list_add_generic_at(list, &data, sizeof(data), index);
+}
+
+void linked_list_add_string_at(linked_list list, char *data, size_t index) {
+	linked_list_add_generic_at(list, data, strlen(data), index);
 }
 
 size_t linked_list_length(linked_list list) {
