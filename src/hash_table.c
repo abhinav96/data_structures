@@ -33,7 +33,7 @@ hash_table new_hash_table(size_t no_of_buckets) {
 	return ht;
 }
 
-void hash_table_set(hash_table ht, char *key, void *value, size_t size) {
+void hash_table_set_generic(hash_table ht, char *key, void *value, size_t size) {
 	void *value_copy = malloc(size);
 	memcpy(value_copy, value, size);
 	size_t key_len = strlen(key) + 1;
@@ -74,6 +74,62 @@ void hash_table_set(hash_table ht, char *key, void *value, size_t size) {
 			hash_table_rehash(ht, ht->no_of_buckets*ht->grow_factor);
 		}
 	}
+}
+
+void hash_table_set_char(hash_table ht, char *key, char data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_uchar(hash_table ht, char *key, unsigned char data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_short(hash_table ht, char *key, short data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_ushort(hash_table ht, char *key, unsigned short data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_int(hash_table ht, char *key, int data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_uint(hash_table ht, char *key, unsigned int data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_long(hash_table ht, char *key, long data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_ulong(hash_table ht, char *key, unsigned long data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_long_long(hash_table ht, char *key, long long data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_ulong_long(hash_table ht, char *key, unsigned long long data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_float(hash_table ht, char *key, float data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_double(hash_table ht, char *key, double data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_long_double(hash_table ht, char *key, long double data) {
+	hash_table_set_generic(ht, key, &data, sizeof(data));
+}
+
+void hash_table_set_string(hash_table ht, char *key, char *data) {
+	hash_table_set_generic(ht, key, data, strlen(data));
 }
 
 void* hash_table_get(hash_table ht, char *key) {

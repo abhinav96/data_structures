@@ -55,7 +55,7 @@ void graph_add_vertex(graph g, char *label, void *data, size_t size) {
 		void *data_copy = malloc(size);
 		memcpy(data_copy, data, size);
 		vx->data = data_copy;
-		hash_table_set(g->vertices, label, vx, sizeof(*vx));
+		hash_table_set_generic(g->vertices, label, vx, sizeof(*vx));
 		free(vx);
 	}
 }
