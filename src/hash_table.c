@@ -156,6 +156,94 @@ void* hash_table_get(hash_table ht, char *key) {
 	return NULL;
 }
 
+unsigned char hash_table_get_uchar(hash_table ht, char *key) {
+	unsigned char *data = hash_table_get(ht, key);
+	unsigned char return_data = *data;
+	free(data);
+	return return_data;
+}
+
+short hash_table_get_short(hash_table ht, char *key) {
+	short *data = hash_table_get(ht, key);
+	short return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned short hash_table_get_ushort(hash_table ht, char *key) {
+	unsigned short *data = hash_table_get(ht, key);
+	unsigned short return_data = *data;
+	free(data);
+	return return_data;
+}
+
+int hash_table_get_int(hash_table ht, char *key) {
+	int *data = hash_table_get(ht, key);
+	int return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned int hash_table_get_uint(hash_table ht, char *key) {
+	unsigned int *data = hash_table_get(ht, key);
+	unsigned int return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long hash_table_get_long(hash_table ht, char *key) {
+	long *data = hash_table_get(ht, key);
+	long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned long hash_table_get_ulong(hash_table ht, char *key) {
+	unsigned long *data = hash_table_get(ht, key);
+	unsigned long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long long hash_table_get_long_long(hash_table ht, char *key) {
+	long long *data = hash_table_get(ht, key);
+	long long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned long long hash_table_get_ulong_long(hash_table ht, char *key) {
+	unsigned long long *data = hash_table_get(ht, key);
+	unsigned long long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+float hash_table_get_float(hash_table ht, char *key) {
+	float *data = hash_table_get(ht, key);
+	float return_data = *data;
+	free(data);
+	return return_data;
+}
+
+double hash_table_get_double(hash_table ht, char *key) {
+	double *data = hash_table_get(ht, key);
+	double return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long double hash_table_get_long_double(hash_table ht, char *key) {
+	long double *data = hash_table_get(ht, key);
+	long double return_data = *data;
+	free(data);
+	return return_data;
+}
+
+char* hash_table_get_string(hash_table ht, char *key) {
+	return hash_table_get(ht, key);
+}
+
 void* hash_table_unset(hash_table ht, char *key) {
 	size_t key_hash = hash(key) % ht->no_of_buckets;
 
@@ -192,6 +280,14 @@ void* hash_table_unset(hash_table ht, char *key) {
 	}
 	return NULL;
 }
+
+char hash_table_get_char(hash_table ht, char *key) {
+	char *data = hash_table_get(ht, key);
+	char return_data = *data;
+	free(data);
+	return return_data;
+}
+
 
 float hash_table_load(hash_table ht) {
 	return (ht->no_of_pairs)/(float)ht->no_of_buckets;
