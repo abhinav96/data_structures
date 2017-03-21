@@ -54,7 +54,20 @@ long double hash_table_get_long_double(hash_table ht, char *key);
 char* hash_table_get_string(hash_table ht, char *key);
 
 void* hash_table_unset(hash_table ht, char *key);
-
+char hash_table_get_char(hash_table ht, char *key);
+unsigned char hash_table_get_uchar(hash_table ht, char *key);
+short hash_table_get_short(hash_table ht, char *key);
+unsigned short hash_table_get_ushort(hash_table ht, char *key);
+int hash_table_get_int(hash_table ht, char *key);
+unsigned int hash_table_get_uint(hash_table ht, char *key);
+long hash_table_get_long(hash_table ht, char *key);
+unsigned long hash_table_get_ulong(hash_table ht, char *key);
+long long hash_table_get_long_long(hash_table ht, char *key);
+unsigned long long hash_table_get_ulong_long(hash_table ht, char *key);
+float hash_table_get_float(hash_table ht, char *key);
+double hash_table_get_double(hash_table ht, char *key);
+long double hash_table_get_long_double(hash_table ht, char *key);
+char* hash_table_get_string(hash_table ht, char *key);
 float hash_table_load(hash_table ht);
 
 void hash_table_rehash(hash_table ht, size_t no_of_buckets);

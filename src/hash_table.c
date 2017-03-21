@@ -156,88 +156,56 @@ void* hash_table_get(hash_table ht, char *key) {
 	return NULL;
 }
 
+char hash_table_get_char(hash_table ht, char *key) {
+	return *(char *)hash_table_get(ht, key);
+}
+
 unsigned char hash_table_get_uchar(hash_table ht, char *key) {
-	unsigned char *data = hash_table_get(ht, key);
-	unsigned char return_data = *data;
-	free(data);
-	return return_data;
+	return *(unsigned char *)hash_table_get(ht, key);
 }
 
 short hash_table_get_short(hash_table ht, char *key) {
-	short *data = hash_table_get(ht, key);
-	short return_data = *data;
-	free(data);
-	return return_data;
+	return *(short *)hash_table_get(ht, key);
 }
 
 unsigned short hash_table_get_ushort(hash_table ht, char *key) {
-	unsigned short *data = hash_table_get(ht, key);
-	unsigned short return_data = *data;
-	free(data);
-	return return_data;
+	return *(unsigned short *)hash_table_get(ht, key);
 }
 
 int hash_table_get_int(hash_table ht, char *key) {
-	int *data = hash_table_get(ht, key);
-	int return_data = *data;
-	free(data);
-	return return_data;
+	return *(int *)hash_table_get(ht, key);
 }
 
 unsigned int hash_table_get_uint(hash_table ht, char *key) {
-	unsigned int *data = hash_table_get(ht, key);
-	unsigned int return_data = *data;
-	free(data);
-	return return_data;
+	return *(unsigned int *)hash_table_get(ht, key);
 }
 
 long hash_table_get_long(hash_table ht, char *key) {
-	long *data = hash_table_get(ht, key);
-	long return_data = *data;
-	free(data);
-	return return_data;
+	return *(long *)hash_table_get(ht, key);
 }
 
 unsigned long hash_table_get_ulong(hash_table ht, char *key) {
-	unsigned long *data = hash_table_get(ht, key);
-	unsigned long return_data = *data;
-	free(data);
-	return return_data;
+	return *(unsigned long *)hash_table_get(ht, key);
 }
 
 long long hash_table_get_long_long(hash_table ht, char *key) {
-	long long *data = hash_table_get(ht, key);
-	long long return_data = *data;
-	free(data);
-	return return_data;
+	return *(long long *)hash_table_get(ht, key);
 }
 
 unsigned long long hash_table_get_ulong_long(hash_table ht, char *key) {
-	unsigned long long *data = hash_table_get(ht, key);
-	unsigned long long return_data = *data;
-	free(data);
-	return return_data;
+	return *(unsigned long long *)hash_table_get(ht, key);
 }
 
 float hash_table_get_float(hash_table ht, char *key) {
-	float *data = hash_table_get(ht, key);
-	float return_data = *data;
-	free(data);
-	return return_data;
+	return *(float *)hash_table_get(ht, key);
 }
 
 double hash_table_get_double(hash_table ht, char *key) {
-	double *data = hash_table_get(ht, key);
-	double return_data = *data;
-	free(data);
-	return return_data;
+	return *(double *)hash_table_get(ht, key);
 }
 
 long double hash_table_get_long_double(hash_table ht, char *key) {
-	long double *data = hash_table_get(ht, key);
-	long double return_data = *data;
-	free(data);
-	return return_data;
+	return *(long double *)hash_table_get(ht, key);
 }
 
 char* hash_table_get_string(hash_table ht, char *key) {
@@ -281,13 +249,100 @@ void* hash_table_unset(hash_table ht, char *key) {
 	return NULL;
 }
 
-char hash_table_get_char(hash_table ht, char *key) {
-	char *data = hash_table_get(ht, key);
+char hash_table_unset_char(hash_table ht, char *key) {
+	char *data = hash_table_unset(ht, key);
 	char return_data = *data;
 	free(data);
 	return return_data;
 }
 
+unsigned char hash_table_unset_uchar(hash_table ht, char *key) {
+	unsigned char *data = hash_table_unset(ht, key);
+	unsigned char return_data = *data;
+	free(data);
+	return return_data;
+}
+
+short hash_table_unset_short(hash_table ht, char *key) {
+	short *data = hash_table_unset(ht, key);
+	short return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned short hash_table_unset_ushort(hash_table ht, char *key) {
+	unsigned short *data = hash_table_unset(ht, key);
+	unsigned short return_data = *data;
+	free(data);
+	return return_data;
+}
+
+int hash_table_unset_int(hash_table ht, char *key) {
+	int *data = hash_table_unset(ht, key);
+	int return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned int hash_table_unset_uint(hash_table ht, char *key) {
+	unsigned int *data = hash_table_unset(ht, key);
+	unsigned int return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long hash_table_unset_long(hash_table ht, char *key) {
+	long *data = hash_table_unset(ht, key);
+	long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned long hash_table_unset_ulong(hash_table ht, char *key) {
+	unsigned long *data = hash_table_unset(ht, key);
+	unsigned long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long long hash_table_unset_long_long(hash_table ht, char *key) {
+	long long *data = hash_table_unset(ht, key);
+	long long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+unsigned long long hash_table_unset_ulong_long(hash_table ht, char *key) {
+	unsigned long long *data = hash_table_unset(ht, key);
+	unsigned long long return_data = *data;
+	free(data);
+	return return_data;
+}
+
+float hash_table_unset_float(hash_table ht, char *key) {
+	float *data = hash_table_unset(ht, key);
+	float return_data = *data;
+	free(data);
+	return return_data;
+}
+
+double hash_table_unset_double(hash_table ht, char *key) {
+	double *data = hash_table_unset(ht, key);
+	double return_data = *data;
+	free(data);
+	return return_data;
+}
+
+long double hash_table_unset_long_double(hash_table ht, char *key) {
+	long double *data = hash_table_unset(ht, key);
+	long double return_data = *data;
+	free(data);
+	return return_data;
+}
+
+char* hash_table_unset_string(hash_table ht, char *key) {
+	return hash_table_unset(ht, key);
+}
 
 float hash_table_load(hash_table ht) {
 	return (ht->no_of_pairs)/(float)ht->no_of_buckets;
