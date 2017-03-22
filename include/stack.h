@@ -1,75 +1,60 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
+#include "linked_list.h"
 
-typedef struct _stack* stack;
+typedef linked_list stack;
 
 #define stack_push(X, Y) _Generic((Y), \
-	char*: stack_push_string, \
-	char: stack_push_char, \
-	unsigned char: stack_push_uchar, \
-	short: stack_push_short, \
-	unsigned short: stack_push_ushort, \
-	int: stack_push_int, \
-	unsigned int: stack_push_uint, \
-	long: stack_push_long, \
-	unsigned long: stack_push_ulong, \
-	long long: stack_push_long_long, \
-	unsigned long long: stack_push_ulong_long, \
-	float: stack_push_float, \
-	double: stack_push_double, \
-	long double: stack_push_long_double \
-	)(X, Y)
+	char*: linked_list_add_string_at, \
+	char: linked_list_add_char_at, \
+	unsigned char: linked_list_add_uchar_at, \
+	short: linked_list_add_short_at, \
+	unsigned short: linked_list_add_ushort_at, \
+	int: linked_list_add_int_at, \
+	unsigned int: linked_list_add_uint_at, \
+	long: linked_list_add_long_at, \
+	unsigned long: linked_list_add_ulong_at, \
+	long long: linked_list_add_long_long_at, \
+	unsigned long long: linked_list_add_ulong_long_at, \
+	float: linked_list_add_float_at, \
+	double: linked_list_add_double_at, \
+	long double: linked_list_add_long_double_at \
+	)(X, Y, 0)
 
-stack new_stack();
+#define new_stack() new_linked_list()
 
-void stack_push_generic(stack s, void *data, size_t size);
-void stack_push_char(stack s, char data);
-void stack_push_uchar(stack s, unsigned char data);
-void stack_push_short(stack s, short data);
-void stack_push_ushort(stack s, unsigned short data);
-void stack_push_int(stack s, int data);
-void stack_push_uint(stack s, unsigned int data);
-void stack_push_long(stack s, long data);
-void stack_push_ulong(stack s, unsigned long data);
-void stack_push_long_long(stack s, long long data);
-void stack_push_ulong_long(stack s, unsigned long long data);
-void stack_push_float(stack s, float data);
-void stack_push_double(stack s, double data);
-void stack_push_long_double(stack s, long double data);
-void stack_push_string(stack s, char *data);
+#define stack_push_generic(A, B, C) linked_list_add_generic_at(A, B, C, 0)
 
-void* stack_pop(stack s);
-char stack_pop_char(stack s);
-unsigned char stack_pop_uchar(stack s);
-short stack_pop_short(stack s);
-unsigned short stack_pop_ushort(stack s);
-int stack_pop_int(stack s);
-unsigned int stack_pop_uint(stack s);
-long stack_pop_long(stack s);
-unsigned long stack_pop_ulong(stack s);
-long long stack_pop_long_long(stack s);
-unsigned long long stack_pop_ulong_long(stack s);
-float stack_pop_float(stack s);
-double stack_pop_double(stack s);
-long double stack_pop_long_double(stack s);
-char* stack_pop_string(stack s);
+#define stack_pop(A) linked_list_remove(A, 0)
+#define stack_pop_char(A) linked_list_remove_char(A, 0)
+#define stack_pop_uchar(A) linked_list_remove_uchar(A, 0)
+#define stack_pop_short(A) linked_list_remove_short(A, 0)
+#define stack_pop_ushort(A) linked_list_remove_ushort(A, 0)
+#define stack_pop_int(A) linked_list_remove_int(A, 0)
+#define stack_pop_uint(A) linked_list_remove_uint(A, 0)
+#define stack_pop_long(A) linked_list_remove_long(A, 0)
+#define stack_pop_ulong(A) linked_list_remove_ulong(A, 0)
+#define stack_pop_long_long(A) linked_list_remove_long_long(A, 0)
+#define stack_pop_ulong_long(A) linked_list_remove_ulong_long(A, 0)
+#define stack_pop_float(A) linked_list_remove_float(A, 0)
+#define stack_pop_double(A) linked_list_remove_double(A, 0)
+#define stack_pop_long_double(A) linked_list_remove_long_double(A, 0)
+#define stack_pop_string(A) linked_list_remove_string(A, 0)
 
-void* stack_peek(stack s);
-char stack_peek_char(stack s);
-unsigned char stack_peek_uchar(stack s);
-short stack_peek_short(stack s);
-unsigned short stack_peek_ushort(stack s);
-int stack_peek_int(stack s);
-unsigned int stack_peek_uint(stack s);
-long stack_peek_long(stack s);
-unsigned long stack_peek_ulong(stack s);
-long long stack_peek_long_long(stack s);
-unsigned long long stack_peek_ulong_long(stack s);
-float stack_peek_float(stack s);
-double stack_peek_double(stack s);
-long double stack_peek_long_double(stack s);
-char* stack_peek_string(stack s);
+#define stack_peek(A) linked_list_get(A, 0)
+#define stack_peek_char(A) linked_list_get_char(A, 0)
+#define stack_peek_uchar(A) linked_list_get_uchar(A, 0)
+#define stack_peek_short(A) linked_list_get_short(A, 0)
+#define stack_peek_ushort(A) linked_list_get_ushort(A, 0)
+#define stack_peek_int(A) linked_list_get_int(A, 0)
+#define stack_peek_uint(A) linked_list_get_uint(A, 0)
+#define stack_peek_long(A) linked_list_get_long(A, 0)
+#define stack_peek_ulong(A) linked_list_get_ulong(A, 0)
+#define stack_peek_long_long(A) linked_list_get_long_long(A, 0)
+#define stack_peek_ulong_long(A) linked_list_get_ulong_long(A, 0)
+#define stack_peek_float(A) linked_list_get_float(A, 0)
+#define stack_peek_double(A) linked_list_get_double(A, 0)
+#define stack_peek_long_double(A) linked_list_get_long_double(A, 0)
+#define stack_peek_string(A) linked_list_get_string(A, 0)
 
-bool stack_is_empty(stack s);
-size_t stack_size(stack s);
+#define stack_size(A) linked_list_length(A)
+
+#define stack_is_empty(A) (bool)!linked_list_length(A)

@@ -23,8 +23,5 @@ priority_queue.o: src/priority_queue.c include/priority_queue.h
 queue.o: src/queue.c include/queue.h
 	$(CC) $(CFLAGS) -c src/queue.c
 
-stack.o: src/stack.c include/stack.h
-	$(CC) $(CFLAGS) -c src/stack.c
-
 clean:
 	rm *.o $(TARGET)
