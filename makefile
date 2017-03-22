@@ -20,8 +20,5 @@ linked_list.o: src/linked_list.c include/linked_list.h
 priority_queue.o: src/priority_queue.c include/priority_queue.h
 	$(CC) $(CFLAGS) -c src/priority_queue.c
 
-queue.o: src/queue.c include/queue.h
-	$(CC) $(CFLAGS) -c src/queue.c
-
 clean:
 	rm *.o $(TARGET)

@@ -1,75 +1,60 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
+#include "linked_list.h"
 
-typedef struct _queue* queue;
+typedef linked_list queue;
 
 #define queue_enqueue(X, Y) _Generic((Y), \
-	char*: queue_enqueue_string, \
-	char: queue_enqueue_char, \
-	unsigned char: queue_enqueue_uchar, \
-	short: queue_enqueue_short, \
-	unsigned short: queue_enqueue_ushort, \
-	int: queue_enqueue_int, \
-	unsigned int: queue_enqueue_uint, \
-	long: queue_enqueue_long, \
-	unsigned long: queue_enqueue_ulong, \
-	long long: queue_enqueue_long_long, \
-	unsigned long long: queue_enqueue_ulong_long, \
-	float: queue_enqueue_float, \
-	double: queue_enqueue_double, \
-	long double: queue_enqueue_long_double \
+	char*: linked_list_add_string, \
+	char: linked_list_add_char, \
+	unsigned char: linked_list_add_uchar, \
+	short: linked_list_add_short, \
+	unsigned short: linked_list_add_ushort, \
+	int: linked_list_add_int, \
+	unsigned int: linked_list_add_uint, \
+	long: linked_list_add_long, \
+	unsigned long: linked_list_add_ulong, \
+	long long: linked_list_add_long_long, \
+	unsigned long long: linked_list_add_ulong_long, \
+	float: linked_list_add_float, \
+	double: linked_list_add_double, \
+	long double: linked_list_add_long_double \
 	)(X, Y)
 
-queue new_queue();
+#define new_queue() new_linked_list()
 
-void queue_enqueue_generic(queue q, void *data, size_t size);
-void queue_enqueue_char(queue q, char data);
-void queue_enqueue_uchar(queue q, unsigned char data);
-void queue_enqueue_short(queue q, short data);
-void queue_enqueue_ushort(queue q, unsigned short data);
-void queue_enqueue_int(queue q, int data);
-void queue_enqueue_uint(queue q, unsigned int data);
-void queue_enqueue_long(queue q, long data);
-void queue_enqueue_ulong(queue q, unsigned long data);
-void queue_enqueue_long_long(queue q, long long data);
-void queue_enqueue_ulong_long(queue q, unsigned long long data);
-void queue_enqueue_float(queue q, float data);
-void queue_enqueue_double(queue q, double data);
-void queue_enqueue_long_double(queue q, long double data);
-void queue_enqueue_string(queue q, char *data);
+#define queue_enqueue_generic(A, B, C) linked_list_add_generic(A, B, C)
 
-void* queue_dequeue(queue q);
-char queue_dequeue_char(queue q);
-unsigned char queue_dequeue_uchar(queue q);
-short queue_dequeue_short(queue q);
-unsigned short queue_dequeue_ushort(queue q);
-int queue_dequeue_int(queue q);
-unsigned int queue_dequeue_uint(queue q);
-long queue_dequeue_long(queue q);
-unsigned long queue_dequeue_ulong(queue q);
-long long queue_dequeue_long_long(queue q);
-unsigned long long queue_dequeue_ulong_long(queue q);
-float queue_dequeue_float(queue q);
-double queue_dequeue_double(queue q);
-long double queue_dequeue_long_double(queue q);
-char* queue_dequeue_string(queue q);
+#define queue_dequeue(A) linked_list_remove(A, 0)
+#define queue_dequeue_char(A) linked_list_remove_char(A, 0)
+#define queue_dequeue_uchar(A) linked_list_remove_uchar(A, 0)
+#define queue_dequeue_short(A) linked_list_remove_short(A, 0)
+#define queue_dequeue_ushort(A) linked_list_remove_ushort(A, 0)
+#define queue_dequeue_int(A) linked_list_remove_int(A, 0)
+#define queue_dequeue_uint(A) linked_list_remove_uint(A, 0)
+#define queue_dequeue_long(A) linked_list_remove_long(A, 0)
+#define queue_dequeue_ulong(A) linked_list_remove_ulong(A, 0)
+#define queue_dequeue_long_long(A) linked_list_remove_long_long(A, 0)
+#define queue_dequeue_ulong_long(A) linked_list_remove_ulong_long(A, 0)
+#define queue_dequeue_float(A) linked_list_remove_float(A, 0)
+#define queue_dequeue_double(A) linked_list_remove_double(A, 0)
+#define queue_dequeue_long_double(A) linked_list_remove_long_double(A, 0)
+#define queue_dequeue_string(A) linked_list_remove_string(A, 0)
 
-void* queue_peek(queue q);
-char queue_peek_char(queue q);
-unsigned char queue_peek_uchar(queue q);
-short queue_peek_short(queue q);
-unsigned short queue_peek_ushort(queue q);
-int queue_peek_int(queue q);
-unsigned int queue_peek_uint(queue q);
-long queue_peek_long(queue q);
-unsigned long queue_peek_ulong(queue q);
-long long queue_peek_long_long(queue q);
-unsigned long long queue_peek_ulong_long(queue q);
-float queue_peek_float(queue q);
-double queue_peek_double(queue q);
-long double queue_peek_long_double(queue q);
-char* queue_peek_string(queue q);
+#define queue_peek(A) linked_list_get(A, 0)
+#define queue_peek_char(A) linked_list_get_char(A, 0)
+#define queue_peek_uchar(A) linked_list_get_uchar(A, 0)
+#define queue_peek_short(A) linked_list_get_short(A, 0)
+#define queue_peek_ushort(A) linked_list_get_ushort(A, 0)
+#define queue_peek_int(A) linked_list_get_int(A, 0)
+#define queue_peek_uint(A) linked_list_get_uint(A, 0)
+#define queue_peek_long(A) linked_list_get_long(A, 0)
+#define queue_peek_ulong(A) linked_list_get_ulong(A, 0)
+#define queue_peek_long_long(A) linked_list_get_long_long(A, 0)
+#define queue_peek_ulong_long(A) linked_list_get_ulong_long(A, 0)
+#define queue_peek_float(A) linked_list_get_float(A, 0)
+#define queue_peek_double(A) linked_list_get_double(A, 0)
+#define queue_peek_long_double(A) linked_list_get_long_double(A, 0)
+#define queue_peek_string(A) linked_list_get_string(A, 0)
 
-bool queue_is_empty(queue q);
-size_t queue_length(queue q);
+#define queue_length(A) linked_list_length(A)
+
+#define queue_is_empty(A) (bool)!linked_list_length(A)
