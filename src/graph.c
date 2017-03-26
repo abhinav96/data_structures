@@ -15,6 +15,7 @@ struct _edge {
 	char *from;
 	char *to;
 	void *data;
+	long long weight;
 };
 
 graph new_graph() {
@@ -32,7 +33,7 @@ vertex new_vertex() {
 	return vx;
 }
 
-edge new_edge(char *from, char *to, void *data, size_t size) {
+edge new_edge(char *from, char *to) {
 	edge ed = malloc(sizeof(*ed));
 	size_t from_size = strlen(from) + 1;
 	size_t to_size = strlen(to) + 1;
@@ -40,11 +41,10 @@ edge new_edge(char *from, char *to, void *data, size_t size) {
 	memcpy(from_copy, from, from_size);
 	char *to_copy = malloc(to_size);
 	memcpy(to_copy, to, to_size);
-	void *data_copy = malloc(size);
-	memcpy(data_copy, data, size);
 	ed->from = from_copy;
 	ed->to = to_copy;
-	ed->data = data_copy;
+	ed->data = NULL;
+	ed->weight = 0;
 	return ed;
 }
 
@@ -74,14 +74,16 @@ void vertex_set_data(graph g, char *label, void *data, size_t size) {
 	}
 }
 
-void vertex_connect(graph g, char *label1, char *label2, void *data, size_t size) {
-	vertex vx1 = hash_table_get(g->vertices, label1);
-	vertex vx2 = hash_table_get(g->vertices, label2);
+edge vertex_connect(graph g, char *from_label, char *to_label, void *data, size_t size) {
+	vertex vx1 = hash_table_get(g->vertices, from_label);
+	vertex vx2 = hash_table_get(g->vertices, to_label);
 	if (vx1 != NULL && vx2 != NULL) {
-		edge ed = new_edge(label1, label2, data, size);
+		edge ed = new_edge(from_label, to_label);
 		linked_list_add_generic(vx1->connections, ed, sizeof(*ed));
 		free(ed);
+		return ed;
 	}
+	return NULL;
 }
 
 linked_list vertex_get_edges(graph g, char *label) {
@@ -119,6 +121,14 @@ void edge_set_data(edge ed, void *data, size_t size) {
 	memcpy(data_copy, data, size);
 	free(ed->data);
 	ed->data = data_copy;
+}
+
+void edge_set_weight(edge ed, long long weight) {
+	ed->weight = weight;
+}
+
+long long edge_get_weight(edge ed) {
+	return ed->weight;
 }
 
 char* edge_get_to(edge ed) {
