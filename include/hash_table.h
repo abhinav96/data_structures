@@ -68,6 +68,15 @@ float hash_table_get_float(hash_table ht, char *key);
 double hash_table_get_double(hash_table ht, char *key);
 long double hash_table_get_long_double(hash_table ht, char *key);
 char* hash_table_get_string(hash_table ht, char *key);
+
 float hash_table_load(hash_table ht);
+void hash_table_set_min_load(hash_table ht, float min_load);
+void hash_table_set_max_load(hash_table ht, float max_load);
+float hash_table_get_min_load(hash_table ht);
+float hash_table_get_max_load(hash_table ht);
+void hash_table_set_shrink_factor(hash_table ht, float shrink_factor);
+void hash_table_set_grow_factor(hash_table ht, float grow_factor);
+float hash_table_get_shrink_factor(hash_table ht);
+float hash_table_get_grow_factor(hash_table ht);
 
 void hash_table_rehash(hash_table ht, size_t no_of_buckets);

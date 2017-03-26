@@ -10,9 +10,9 @@ struct _hash_table {
 	size_t no_of_buckets;
 	size_t no_of_pairs;
 	float min_load;
-	float grow_factor;
-	float max_load;
 	float shrink_factor;
+	float max_load;
+	float grow_factor;
 	linked_list *buckets;
 };
 
@@ -370,6 +370,38 @@ void hash_table_rehash(hash_table ht, size_t no_of_buckets) {
 	free(ht->buckets);
 	ht->buckets = buckets;
 	ht->no_of_buckets = no_of_buckets;
+}
+
+void hash_table_set_min_load(hash_table ht, float min_load) {
+	ht->min_load = min_load;
+}
+
+void hash_table_set_max_load(hash_table ht, float max_load) {
+	ht->max_load = max_load;
+}
+
+float hash_table_get_min_load(hash_table ht) {
+	return ht->min_load;
+}
+
+float hash_table_get_max_load(hash_table ht) {
+	return ht->max_load;
+}
+
+void hash_table_set_shrink_factor(hash_table ht, float shrink_factor) {
+	ht->shrink_factor = shrink_factor;
+}
+
+void hash_table_set_grow_factor(hash_table ht, float grow_factor) {
+	ht->grow_factor = grow_factor;
+}
+
+float hash_table_get_shrink_factor(hash_table ht) {
+	return ht->shrink_factor;
+}
+
+float hash_table_get_grow_factor(hash_table ht) {
+	return ht->grow_factor;
 }
 
 // https://stackoverflow.com/questions/7666509/hash-function-for-string
