@@ -7,7 +7,7 @@ struct _graph {
 
 struct _vertex {
 	void *data;
-	short visited;
+	bool visited;
 	linked_list connections;
 };
 
@@ -50,7 +50,7 @@ edge new_edge(char *from, char *to) {
 
 void graph_add_vertex(graph g, char *label, void *data, size_t size) {
 	if (hash_table_get(g->vertices, label) == NULL) {
-		linked_list_add_generic(g->labels, label, strlen(label) + 1);
+		linked_list_add(g->labels, label);
 		vertex vx = new_vertex();
 		void *data_copy = malloc(size);
 		memcpy(data_copy, data, size);
@@ -64,6 +64,29 @@ linked_list graph_get_vertices(graph g) {
 	return g->labels;
 }
 
+long long graph_min_distance(graph g, char *from_label, char *to_label) {
+	if (strcmp(from_label, to_label) == 0) {
+		return 0;
+	}
+	vertex_mark_visited(g, from_label);
+	linked_list edges = vertex_get_edges(g, from_label);
+	long long min = LLONG_MAX;
+	long long temp;
+	edge temp_edge;
+	size_t list_length = linked_list_length(edges);
+	for (int i = 0; i < list_length; ++i) {
+		temp_edge = linked_list_get(edges, i);
+		if (!vertex_is_visited(g, edge_get_to(temp_edge))) {
+			temp = graph_min_distance(g, edge_get_to(temp_edge), to_label);
+			if (temp != LLONG_MAX && (temp + edge_get_weight(temp_edge)) < min) {
+				min = (temp + edge_get_weight(temp_edge));
+			}
+		}
+	}
+	vertex_mark_unvisited(g, from_label);
+	return min;
+}
+
 void vertex_set_data(graph g, char *label, void *data, size_t size) {
 	vertex vx = hash_table_get(g->vertices, label);
 	if (vx != NULL) {
@@ -74,14 +97,14 @@ void vertex_set_data(graph g, char *label, void *data, size_t size) {
 	}
 }
 
-edge vertex_connect(graph g, char *from_label, char *to_label, void *data, size_t size) {
+edge vertex_connect(graph g, char *from_label, char *to_label) {
 	vertex vx1 = hash_table_get(g->vertices, from_label);
 	vertex vx2 = hash_table_get(g->vertices, to_label);
 	if (vx1 != NULL && vx2 != NULL) {
 		edge ed = new_edge(from_label, to_label);
 		linked_list_add_generic(vx1->connections, ed, sizeof(*ed));
 		free(ed);
-		return ed;
+		return linked_list_get(vx1->connections, linked_list_length(vx1->connections) - 1);
 	}
 	return NULL;
 }
@@ -108,7 +131,7 @@ void vertex_mark_unvisited(graph g, char *label) {
 	}
 }
 
-short vertex_is_visited(graph g, char *label) {
+bool vertex_is_visited(graph g, char *label) {
 	vertex vx = hash_table_get(g->vertices, label);
 	if (vx != NULL) {
 		return vx->visited;
