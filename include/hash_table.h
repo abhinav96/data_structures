@@ -20,6 +20,7 @@ typedef struct _hash_table* hash_table;
 	)(X, Y, Z)
 
 hash_table new_hash_table(size_t no_of_buckets);
+void hash_table_destroy(hash_table ht);
 
 void hash_table_set_generic(hash_table ht, char *key, void *value, size_t size);
 void hash_table_set_char(hash_table ht, char *key, char data);

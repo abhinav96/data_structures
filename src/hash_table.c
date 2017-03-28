@@ -414,3 +414,18 @@ size_t hash(char *str) {
 
 	return hash;
 }
+
+void hash_table_destroy(hash_table ht) {
+	for (int i = 0; i < ht->no_of_buckets; ++i) {
+		if (ht->buckets[i] != NULL) {
+			while (linked_list_length(ht->buckets[i])) {
+				struct pair *temp_pair = linked_list_remove(ht->buckets[i], 0);
+				free(temp_pair->key);
+				free(temp_pair->value);
+				free(temp_pair);
+			}
+			linked_list_destroy(ht->buckets[i]);
+		}
+	}
+	linked_list_destroy(*(ht->buckets));
+}
