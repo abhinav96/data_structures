@@ -427,5 +427,5 @@ void hash_table_destroy(hash_table ht) {
 			linked_list_destroy(ht->buckets[i]);
 		}
 	}
-	linked_list_destroy(*(ht->buckets));
+	free(ht);
 }

@@ -64,27 +64,33 @@ linked_list graph_get_vertices(graph g) {
 	return g->labels;
 }
 
-long long graph_min_distance(graph g, char *from_label, char *to_label) {
+void find_min_distance(graph g, char *from_label, char *to_label, long long curr_cost, hash_table lookup) {
+	hash_table_set(lookup, from_label, curr_cost);	
 	if (strcmp(from_label, to_label) == 0) {
-		return 0;
+		return;
 	}
-	vertex_mark_visited(g, from_label);
 	linked_list edges = vertex_get_edges(g, from_label);
-	long long min = LLONG_MAX;
-	long long temp;
 	edge temp_edge;
 	size_t list_length = linked_list_length(edges);
 	for (int i = 0; i < list_length; ++i) {
 		temp_edge = linked_list_get(edges, i);
-		if (!vertex_is_visited(g, edge_get_to(temp_edge))) {
-			temp = graph_min_distance(g, edge_get_to(temp_edge), to_label);
-			if (temp != LLONG_MAX && (temp + edge_get_weight(temp_edge)) < min) {
-				min = (temp + edge_get_weight(temp_edge));
-			}
+		long long *check_distance = hash_table_get(lookup, edge_get_to(temp_edge));
+		if (check_distance == NULL || *(check_distance) > curr_cost + edge_get_weight(temp_edge)) {
+			find_min_distance(g, edge_get_to(temp_edge), to_label, curr_cost + edge_get_weight(temp_edge), lookup);
 		}
 	}
-	vertex_mark_unvisited(g, from_label);
-	return min;
+	return;
+}
+
+long long graph_min_distance(graph g, char *from_label, char *to_label) {
+	hash_table lookup = new_hash_table(1.3*linked_list_length(graph_get_vertices(g)));
+	find_min_distance(g, from_label, to_label, 0, lookup);
+	long long dist = LLONG_MAX;
+	if (hash_table_get(lookup, to_label) != NULL) {
+		dist = hash_table_get_long_long(lookup, to_label);
+	}
+	hash_table_destroy(lookup);
+	return dist;
 }
 
 void vertex_set_data(graph g, char *label, void *data, size_t size) {
