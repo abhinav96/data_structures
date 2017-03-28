@@ -517,3 +517,14 @@ void linked_list_add_string_at(linked_list list, char *data, size_t index) {
 size_t linked_list_length(linked_list list) {
 	return list->length;
 }
+
+void linked_list_destroy(linked_list list) {
+	node temp = list->first;
+	while (temp != NULL) {
+		node temp_next = temp->next;
+		free(temp->data);
+		free(temp);
+		temp = temp_next;
+	}
+	free(list);
+}

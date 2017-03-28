@@ -40,6 +40,7 @@ typedef struct _linked_list* linked_list;
 	)(X, Y, Z)
 
 linked_list new_linked_list();
+void linked_list_destroy(linked_list list);
 
 void linked_list_add_generic(linked_list list, void *data, size_t size);
 void linked_list_add_char(linked_list list, char data);
