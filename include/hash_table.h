@@ -38,6 +38,8 @@ void hash_table_set_double(hash_table ht, char *key, double data);
 void hash_table_set_long_double(hash_table ht, char *key, long double data);
 void hash_table_set_string(hash_table ht, char *key, char *data);
 
+bool hash_table_is_set(hash_table ht, char *key);
+
 void* hash_table_get(hash_table ht, char *key);
 char hash_table_get_char(hash_table ht, char *key);
 unsigned char hash_table_get_uchar(hash_table ht, char *key);

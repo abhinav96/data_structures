@@ -132,6 +132,30 @@ void hash_table_set_string(hash_table ht, char *key, char *data) {
 	hash_table_set_generic(ht, key, data, strlen(data));
 }
 
+bool hash_table_is_set(hash_table ht, char *key) {
+
+	size_t key_hash = hash(key) % ht->no_of_buckets;
+
+	if (ht->buckets[key_hash] == NULL) {
+		return false;
+	}
+
+	linked_list bucket_list = ht->buckets[key_hash];
+
+	size_t i = 0;
+	struct pair *p = linked_list_get(bucket_list, i);
+
+	while (p != NULL && strcmp(key, p->key) != 0) {
+		p = linked_list_get(bucket_list, i);
+		++i;
+	}
+
+	if (p != NULL) {
+		return true;
+	}
+	return false;
+}
+
 void* hash_table_get(hash_table ht, char *key) {
 	size_t key_hash = hash(key) % ht->no_of_buckets;
 
