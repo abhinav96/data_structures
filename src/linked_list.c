@@ -516,6 +516,7 @@ void linked_list_add_string_at(linked_list list, char *data, size_t index) {
 }
 
 size_t linked_list_length(linked_list list) {
+	assert(list != NULL);
 	return list->length;
 }
 

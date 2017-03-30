@@ -19,10 +19,9 @@ struct _hash_table {
 size_t hash(char *str);
 
 hash_table new_hash_table(size_t no_of_buckets) {
-	if (no_of_buckets == 0) {
-		no_of_buckets = 100;
-	}
+	assert(no_of_buckets > 0);
 	hash_table ht = malloc(sizeof(*ht));
+	assert(ht != NULL);
 	ht->no_of_buckets = no_of_buckets;
 	ht->no_of_pairs = 0;
 	ht->min_load = 0.15;
@@ -30,14 +29,21 @@ hash_table new_hash_table(size_t no_of_buckets) {
 	ht->max_load = 0.75;
 	ht->grow_factor = 2.0;
 	ht->buckets = calloc(no_of_buckets, sizeof(linked_list));
+	assert(ht->buckets != NULL);
 	return ht;
 }
 
 void hash_table_set_generic(hash_table ht, char *key, void *value, size_t size) {
+
+	assert(ht != NULL);
+	assert(key != NULL);
+
 	void *value_copy = malloc(size);
+	assert(value_copy != NULL);
 	memcpy(value_copy, value, size);
 	size_t key_len = strlen(key) + 1;
 	void *key_copy = malloc(key_len);
+	assert(key_copy != NULL);
 	memcpy(key_copy, key, key_len);
 
 	size_t key_hash = hash(key) % ht->no_of_buckets;
@@ -49,20 +55,24 @@ void hash_table_set_generic(hash_table ht, char *key, void *value, size_t size) 
 		ht->buckets[key_hash] = bucket_list;
 	}
 
-	struct pair *p = linked_list_get(bucket_list, 0);
+	struct pair *p = NULL;
 
-	size_t i = 1;
+	size_t len = linked_list_length(bucket_list);
+	size_t i = 0;
 
-	while (p != NULL && strcmp(key, p->key) != 0) {
+	for (i = 0; i < len; ++i) {
 		p = linked_list_get(bucket_list, i);
-		++i;
+		if (strcmp(key, p->key) == 0) {
+			break;
+		}
 	}
 
-	if (p != NULL) {
+	if (p != NULL && i < len) {
 		p->value = value_copy;
 		p->size = size;
 	} else {
 		p = malloc(sizeof(*p));
+		assert(p != NULL);
 		p->key = key_copy;
 		p->value = value_copy;
 		p->size = size;
@@ -134,6 +144,9 @@ void hash_table_set_string(hash_table ht, char *key, char *data) {
 
 bool hash_table_is_set(hash_table ht, char *key) {
 
+	assert(ht != NULL);
+	assert(key != NULL);
+
 	size_t key_hash = hash(key) % ht->no_of_buckets;
 
 	if (ht->buckets[key_hash] == NULL) {
@@ -142,42 +155,47 @@ bool hash_table_is_set(hash_table ht, char *key) {
 
 	linked_list bucket_list = ht->buckets[key_hash];
 
-	size_t i = 0;
-	struct pair *p = linked_list_get(bucket_list, i);
+	struct pair *p = NULL;
 
-	while (p != NULL && strcmp(key, p->key) != 0) {
+	size_t len = linked_list_length(bucket_list);
+	size_t i = 0;
+
+	for (i = 0; i < len; ++i) {
 		p = linked_list_get(bucket_list, i);
-		++i;
+		if (strcmp(key, p->key) == 0) {
+			break;
+		}
 	}
 
-	if (p != NULL) {
+	if (p != NULL && i < len) {
 		return true;
 	}
 	return false;
 }
 
 void* hash_table_get(hash_table ht, char *key) {
+
+	assert(ht != NULL);
+	assert(key != NULL);
+
 	size_t key_hash = hash(key) % ht->no_of_buckets;
 
 	linked_list bucket_list = ht->buckets[key_hash];
 
-	if (bucket_list == NULL) {
-		return NULL;
-	}
+	struct pair *p = NULL;
 
-	struct pair *p = linked_list_get(bucket_list, 0);
+	size_t len = linked_list_length(bucket_list);
+	size_t i = 0;
 
-	size_t i = 1;
-
-	while (p != NULL && strcmp(key, p->key) != 0) {
+	for (i = 0; i < len; ++i) {
 		p = linked_list_get(bucket_list, i);
-		++i;
+		if (strcmp(key, p->key) == 0) {
+			break;
+		}
 	}
 
-	if (p != NULL) {
-		return p->value;
-	}
-	return NULL;
+	assert(i < len);
+	return p->value;
 }
 
 char hash_table_get_char(hash_table ht, char *key) {
@@ -237,40 +255,42 @@ char* hash_table_get_string(hash_table ht, char *key) {
 }
 
 void* hash_table_unset(hash_table ht, char *key) {
+
+	assert(ht != NULL);
+	assert(key != NULL);
+
 	size_t key_hash = hash(key) % ht->no_of_buckets;
 
 	linked_list bucket_list = ht->buckets[key_hash];
 
-	if (bucket_list == NULL) {
-		return NULL;
-	}
+	struct pair *p = NULL;
 
-	struct pair *p = linked_list_get(bucket_list, 0);
+	size_t len = linked_list_length(bucket_list);
+	size_t i = 0;
 
-	size_t i = 1;
-
-	while (p != NULL && strcmp(key, p->key) != 0) {
+	for (i = 0; i < len; ++i) {
 		p = linked_list_get(bucket_list, i);
-		++i;
+		if (strcmp(key, p->key) == 0) {
+			break;
+		}
 	}
 
-	if (p != NULL) {
-		linked_list_remove(bucket_list, i - 1);
-		free(p->key);
-		void *value = p->value;
-		free(p);
-		--ht->no_of_pairs;
-		if (linked_list_length(bucket_list) == 0) {
-			free(bucket_list);
-			ht->buckets[key_hash] = NULL;
-		}
-
-		if (hash_table_load(ht) < ht->min_load) {
-			hash_table_rehash(ht, ht->no_of_buckets*ht->shrink_factor);
-		}
-		return value;
+	assert(p != NULL);
+	assert(i < len);
+	linked_list_remove(bucket_list, i - 1);
+	free(p->key);
+	void *value = p->value;
+	free(p);
+	--ht->no_of_pairs;
+	if (linked_list_length(bucket_list) == 0) {
+		free(bucket_list);
+		ht->buckets[key_hash] = NULL;
 	}
-	return NULL;
+
+	if (hash_table_load(ht) < ht->min_load) {
+		hash_table_rehash(ht, ht->no_of_buckets*ht->shrink_factor);
+	}
+	return value;
 }
 
 char hash_table_unset_char(hash_table ht, char *key) {
@@ -373,8 +393,13 @@ float hash_table_load(hash_table ht) {
 }
 
 void hash_table_rehash(hash_table ht, size_t no_of_buckets) {
+
+	assert(ht != NULL);
+	assert(no_of_buckets > 0);
+
 	linked_list *buckets = calloc(no_of_buckets, sizeof(linked_list));
-	for (int i = 0; i < ht->no_of_buckets; ++i) {
+	assert(buckets != NULL);
+	for (size_t i = 0; i < ht->no_of_buckets; ++i) {
 		if (ht->buckets[i] != NULL) {
 			while (linked_list_length(ht->buckets[i])) {
 				struct pair *temp_pair = linked_list_remove(ht->buckets[i], 0);
@@ -387,7 +412,7 @@ void hash_table_rehash(hash_table ht, size_t no_of_buckets) {
 				linked_list_add_generic(buckets[key_hash], temp_pair, sizeof(*temp_pair));
 				free(temp_pair);
 			}
-			free(ht->buckets[i]);
+			linked_list_destroy(ht->buckets[i]);
 			ht->buckets[i] = NULL;
 		}
 	}
@@ -397,34 +422,42 @@ void hash_table_rehash(hash_table ht, size_t no_of_buckets) {
 }
 
 void hash_table_set_min_load(hash_table ht, float min_load) {
+	assert(ht != NULL);
 	ht->min_load = min_load;
 }
 
 void hash_table_set_max_load(hash_table ht, float max_load) {
+	assert(ht != NULL);
 	ht->max_load = max_load;
 }
 
 float hash_table_get_min_load(hash_table ht) {
+	assert(ht != NULL);
 	return ht->min_load;
 }
 
 float hash_table_get_max_load(hash_table ht) {
+	assert(ht != NULL);
 	return ht->max_load;
 }
 
 void hash_table_set_shrink_factor(hash_table ht, float shrink_factor) {
+	assert(ht != NULL);
 	ht->shrink_factor = shrink_factor;
 }
 
 void hash_table_set_grow_factor(hash_table ht, float grow_factor) {
+	assert(ht != NULL);
 	ht->grow_factor = grow_factor;
 }
 
 float hash_table_get_shrink_factor(hash_table ht) {
+	assert(ht != NULL);
 	return ht->shrink_factor;
 }
 
 float hash_table_get_grow_factor(hash_table ht) {
+	assert(ht != NULL);
 	return ht->grow_factor;
 }
 
@@ -440,6 +473,9 @@ size_t hash(char *str) {
 }
 
 void hash_table_destroy(hash_table ht) {
+	if (ht == NULL) {
+		return;
+	}
 	for (int i = 0; i < ht->no_of_buckets; ++i) {
 		if (ht->buckets[i] != NULL) {
 			while (linked_list_length(ht->buckets[i])) {
