@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <assert.h>
 
 typedef struct _linked_list* linked_list;
 

@@ -24,6 +24,7 @@ void reset_middle(linked_list list);
 
 linked_list new_linked_list() {
 	linked_list new_ll = malloc(sizeof(*new_ll));
+	assert(new_ll != NULL);
 	new_ll->first = NULL;
 	new_ll->last = NULL;
 	new_ll->middle = NULL;
@@ -36,7 +37,9 @@ linked_list new_linked_list() {
 
 node new_node(void *data, size_t size) {
 	node new_el = malloc(sizeof(*new_el));
+	assert(new_el != NULL);
 	void *data_copy = malloc(size);
+	assert(data_copy != NULL);
 	memcpy(data_copy, data, size);
 	new_el->data = data_copy;
 	new_el->next = NULL;
@@ -46,14 +49,13 @@ node new_node(void *data, size_t size) {
 
 void reset_middle(linked_list list) {
 	size_t middle_index = list->length/2;
+
 	if (list->middle == NULL) {
 		list->middle_index = 0;
 		list->middle = list->first;
-		while(list->middle_index != middle_index && list->middle->next != NULL) {
-			list->middle = list->middle->next;
-			++list->middle_index;
-		}
-	} else if (list->middle_index > middle_index) {
+	}
+
+	if (list->middle_index > middle_index) {
 		while(list->middle_index != middle_index) {
 			list->middle = list->middle->prev;
 			--list->middle_index;
@@ -64,9 +66,11 @@ void reset_middle(linked_list list) {
 			++list->middle_index;
 		}
 	}
+	assert(list->middle_index == list->length/2);
 }
 
 void linked_list_add_generic(linked_list list, void *data, size_t size) {
+	assert(list != NULL);
 	node new_el = new_node(data, size);
 	if (list->first == NULL) {
 		list->first = new_el;
@@ -137,9 +141,11 @@ void linked_list_add_string(linked_list list, char *data) {
 }
 
 node linked_list_get_node_at_index(linked_list list, size_t index) {
-	if (list->first == NULL || index > list->length - 1) {
-		return NULL;
-	}
+
+	assert(list != NULL);
+	assert(index >= 0);
+	assert(index < linked_list_length(list));
+
 	node temp = NULL;
 	size_t temp_index = 0;
 	size_t first = index;
@@ -212,10 +218,7 @@ node linked_list_get_node_at_index(linked_list list, size_t index) {
 
 void* linked_list_get(linked_list list, size_t index) {
 	node temp = linked_list_get_node_at_index(list, index);
-	if (temp != NULL) {
-		return temp->data;
-	}
-	return NULL;
+	return temp->data;
 }
 
 char linked_list_get_char(linked_list list, size_t index) {
@@ -275,10 +278,13 @@ char* linked_list_get_string(linked_list list, size_t index) {
 }
 
 void* linked_list_remove(linked_list list, size_t index) {
+	
+	assert(list != NULL);
+	assert(index >= 0);
+	assert(index < linked_list_length(list));
+
 	void* data = NULL;
-	if (list->length == 0) {
-		return data;
-	} else if (list->length == 1) {
+	if (list->length == 1) {
 		data = list->first->data;
 		free(list->first);
 		list->middle = NULL;
@@ -290,37 +296,38 @@ void* linked_list_remove(linked_list list, size_t index) {
 		--list->length;
 		return data;
 	}
-	node del_el = linked_list_get_node_at_index(list, index);
-	if (del_el != NULL) {
-		list->iterator = del_el->prev;
-		list->iterator_index = index - 1;
-		data = del_el->data;
-		if (index == list->middle_index) {
-			if (list->middle_index > 0) {
-				--list->middle_index;
-			}
-			list->middle = list->middle->prev;
-		} else if (index < list->middle_index) {
-			if (list->middle_index > 0) {
-				--list->middle_index;
-			}
-		}
-		if (del_el == list->first) {
-			list->first = list->first->next;
-			list->first->prev = NULL;
-		} else if (del_el == list->last) {
-			list->last = list->last->prev;
-			list->last->next = NULL;
-		} else {
-			del_el->prev->next = del_el->next;
-			del_el->next->prev = del_el->prev;
-		}
 
-		--list->length;
-		free(del_el);
-		
-		reset_middle(list);
+	node del_el = linked_list_get_node_at_index(list, index);
+	list->iterator = del_el->prev;
+	list->iterator_index = index - 1;
+	data = del_el->data;
+
+	if (index == list->middle_index) {
+		list->middle = list->middle->prev;
 	}
+	if (index <= list->middle_index) {
+		--list->middle_index;
+	}
+
+	if (index == 0) {
+		list->first = list->first->next;
+		list->first->prev = NULL;
+	} else if (index == list->length - 1) {
+		list->last = list->last->prev;
+		list->last->next = NULL;
+	} else {
+		del_el->prev->next = del_el->next;
+		del_el->next->prev = del_el->prev;
+	}
+	list->iterator_index = index;
+	list->iterator = del_el->next;
+
+	--list->length;
+	free(del_el);
+	
+	reset_middle(list);
+
+	assert(list->middle_index == list->length/2);
 	return data;
 }
 
@@ -420,41 +427,35 @@ char* linked_list_remove_string(linked_list list, size_t index) {
 }
 
 void linked_list_add_generic_at(linked_list list, void *data, size_t size, size_t index) {
-	if (index > list->length) {
-		return;
-	}
+
+	assert(list != NULL);
+	assert(index >= 0);
+	assert(index <= linked_list_length(list));
+
 	if (index == list->length) {
 		linked_list_add_generic(list, data, size);
 		return;
 	}
 	node new_el = new_node(data, size);
-	if (list->first == NULL) {
+	node node_at_index = linked_list_get_node_at_index(list, index);
+	if (index == 0) {
+		list->first->prev = new_el;
+		new_el->next = list->first;
 		list->first = new_el;
-		list->last = new_el;
-		++list->length;
-		reset_middle(list);
 	} else {
-		node node_at_index = linked_list_get_node_at_index(list, index);
-		if (node_at_index != NULL) {
-			if (index == 0) {
-				list->first->prev = new_el;
-				new_el->next = list->first;
-				list->first = new_el;
-			} else {
-				node_at_index->prev->next = new_el;
-				new_el->prev = node_at_index->prev;
-				new_el->next = node_at_index;
-				node_at_index->prev = new_el;
-			}
-			if (index <= list->middle_index) {
-				++list->middle_index;
-			}
-			++list->length;
-			reset_middle(list);
-		}
+		node_at_index->prev->next = new_el;
+		new_el->prev = node_at_index->prev;
+		new_el->next = node_at_index;
+		node_at_index->prev = new_el;
 	}
+	if (index <= list->middle_index) {
+		++list->middle_index;
+	}
+	++list->length;
+	reset_middle(list);
 	list->iterator = new_el;
 	list->iterator_index = index;
+	assert(list->middle_index == list->length/2);
 	return;
 }
 
@@ -519,6 +520,9 @@ size_t linked_list_length(linked_list list) {
 }
 
 void linked_list_destroy(linked_list list) {
+	if (list == NULL) {
+		return;
+	}
 	node temp = list->first;
 	while (temp != NULL) {
 		node temp_next = temp->next;
