@@ -20,6 +20,7 @@ typedef linked_list queue;
 	)(X, Y)
 
 #define new_queue() new_linked_list()
+#define queue_destroy(A) linked_list_destroy(A)
 
 #define queue_enqueue_generic(A, B, C) linked_list_add_generic(A, B, C)
 

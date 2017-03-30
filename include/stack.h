@@ -20,6 +20,7 @@ typedef linked_list stack;
 	)(X, Y, 0)
 
 #define new_stack() new_linked_list()
+#define stack_destroy(A) linked_list_destroy(A)
 
 #define stack_push_generic(A, B, C) linked_list_add_generic_at(A, B, C, 0)
 
