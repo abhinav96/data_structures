@@ -139,7 +139,7 @@ void hash_table_set_long_double(hash_table ht, char *key, long double data) {
 }
 
 void hash_table_set_string(hash_table ht, char *key, char *data) {
-	hash_table_set_generic(ht, key, data, strlen(data));
+	hash_table_set_generic(ht, key, data, strlen(data) + 1);
 }
 
 bool hash_table_is_set(hash_table ht, char *key) {

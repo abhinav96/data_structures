@@ -137,7 +137,7 @@ void linked_list_add_long_double(linked_list list, long double data) {
 }
 
 void linked_list_add_string(linked_list list, char *data) {
-	linked_list_add_generic(list, data, strlen(data));
+	linked_list_add_generic(list, data, strlen(data) + 1);
 }
 
 node linked_list_get_node_at_index(linked_list list, size_t index) {
