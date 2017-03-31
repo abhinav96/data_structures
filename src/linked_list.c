@@ -143,7 +143,6 @@ void linked_list_add_string(linked_list list, char *data) {
 node linked_list_get_node_at_index(linked_list list, size_t index) {
 
 	assert(list != NULL);
-	assert(index >= 0);
 	assert(index < linked_list_length(list));
 
 	node temp = NULL;
@@ -280,7 +279,6 @@ char* linked_list_get_string(linked_list list, size_t index) {
 void* linked_list_remove(linked_list list, size_t index) {
 	
 	assert(list != NULL);
-	assert(index >= 0);
 	assert(index < linked_list_length(list));
 
 	void* data = NULL;
@@ -429,7 +427,6 @@ char* linked_list_remove_string(linked_list list, size_t index) {
 void linked_list_add_generic_at(linked_list list, void *data, size_t size, size_t index) {
 
 	assert(list != NULL);
-	assert(index >= 0);
 	assert(index <= linked_list_length(list));
 
 	if (index == list->length) {
