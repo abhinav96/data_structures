@@ -517,6 +517,18 @@ size_t linked_list_length(linked_list list) {
 	return list->length;
 }
 
+void linked_list_swap(linked_list list, size_t i, size_t j) {
+	assert(list != NULL);
+	assert(i < linked_list_length(list));
+	assert(j < linked_list_length(list));
+
+	node node_i = linked_list_get_node_at_index(list, i);
+	node node_j = linked_list_get_node_at_index(list, j);
+	void *temp = node_i->data;
+	node_i->data = node_j->data;
+	node_j->data = temp;
+}
+
 void linked_list_destroy(linked_list list) {
 	if (list == NULL) {
 		return;

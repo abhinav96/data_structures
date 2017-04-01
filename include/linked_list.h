@@ -107,4 +107,6 @@ double linked_list_remove_double(linked_list list, size_t index);
 long double linked_list_remove_long_double(linked_list list, size_t index);
 char* linked_list_remove_string(linked_list list, size_t index);
 
+void linked_list_swap(linked_list list, size_t i, size_t j);
+
 size_t linked_list_length(linked_list list);
