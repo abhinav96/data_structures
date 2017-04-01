@@ -194,7 +194,7 @@ void* hash_table_get(hash_table ht, char *key) {
 		}
 	}
 
-	assert(i < len);
+	assert(strcmp(key, p->key) == 0);
 	return p->value;
 }
 
@@ -275,8 +275,7 @@ void* hash_table_unset(hash_table ht, char *key) {
 		}
 	}
 
-	assert(p != NULL);
-	assert(i < len);
+	assert(strcmp(key, p->key) == 0);
 	linked_list_remove(bucket_list, i - 1);
 	free(p->key);
 	void *value = p->value;
