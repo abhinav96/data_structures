@@ -35,7 +35,7 @@ vertex new_vertex() {
 	return vx;
 }
 
-edge new_edge(char *from, char *to) {
+edge new_edge(const char *from, const char *to) {
 
 	edge ed = malloc(sizeof(*ed));
 	assert(ed != NULL);
@@ -54,7 +54,7 @@ edge new_edge(char *from, char *to) {
 	return ed;
 }
 
-void graph_add_vertex(graph g, char *label, void *data, size_t size) {
+void graph_add_vertex(graph g, const char *label, const void *data, size_t size) {
 
 	assert(g != NULL);
 	assert(label != NULL);
@@ -76,7 +76,7 @@ linked_list graph_get_vertices(graph g) {
 	return g->labels;
 }
 
-void find_min_distance(graph g, char *from_label, char *to_label, long long curr_cost, hash_table lookup) {
+void find_min_distance(graph g, const char *from_label, const char *to_label, long long curr_cost, hash_table lookup) {
 	hash_table_set(lookup, from_label, curr_cost);	
 	if (strcmp(from_label, to_label) == 0) {
 		return;
@@ -95,7 +95,7 @@ void find_min_distance(graph g, char *from_label, char *to_label, long long curr
 	return;
 }
 
-long long graph_min_distance(graph g, char *from_label, char *to_label) {
+long long graph_min_distance(graph g, const char *from_label, const char *to_label) {
 
 	assert(g != NULL);
 	assert(from_label != NULL);
@@ -111,7 +111,7 @@ long long graph_min_distance(graph g, char *from_label, char *to_label) {
 	return dist;
 }
 
-void vertex_set_data(graph g, char *label, void *data, size_t size) {
+void vertex_set_data(graph g, const char *label, const void *data, size_t size) {
 
 	assert(g != NULL);
 	assert(label != NULL);
@@ -124,7 +124,7 @@ void vertex_set_data(graph g, char *label, void *data, size_t size) {
 	vx->data = data_copy;
 }
 
-edge vertex_connect(graph g, char *from_label, char *to_label) {
+edge vertex_connect(graph g, const char *from_label, const char *to_label) {
 
 	assert(g != NULL);
 	assert(from_label != NULL);
@@ -137,7 +137,7 @@ edge vertex_connect(graph g, char *from_label, char *to_label) {
 	return linked_list_get(vx1->connections, linked_list_length(vx1->connections) - 1);
 }
 
-linked_list vertex_get_edges(graph g, char *label) {
+linked_list vertex_get_edges(graph g, const char *label) {
 
 	assert(g != NULL);
 	assert(label != NULL);
@@ -146,7 +146,7 @@ linked_list vertex_get_edges(graph g, char *label) {
 	return vx->connections;
 }
 
-void vertex_mark_visited(graph g, char *label) {
+void vertex_mark_visited(graph g, const char *label) {
 
 	assert(g != NULL);
 	assert(label != NULL);
@@ -155,7 +155,7 @@ void vertex_mark_visited(graph g, char *label) {
 	vx->visited = true;
 }
 
-void vertex_mark_unvisited(graph g, char *label) {
+void vertex_mark_unvisited(graph g, const char *label) {
 	
 	assert(g != NULL);
 	assert(label != NULL);
@@ -164,7 +164,7 @@ void vertex_mark_unvisited(graph g, char *label) {
 	vx->visited = false;
 }
 
-bool vertex_is_visited(graph g, char *label) {
+bool vertex_is_visited(graph g, const char *label) {
 	
 	assert(g != NULL);
 	assert(label != NULL);
@@ -173,7 +173,7 @@ bool vertex_is_visited(graph g, char *label) {
 	return vx->visited;
 }
 
-void edge_set_data(edge ed, void *data, size_t size) {
+void edge_set_data(edge ed, const void *data, size_t size) {
 
 	assert(ed != NULL);
 

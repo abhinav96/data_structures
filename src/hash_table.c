@@ -16,7 +16,7 @@ struct _hash_table {
 	linked_list *buckets;
 };
 
-size_t hash(char *str);
+size_t hash(const char *str);
 
 hash_table new_hash_table(size_t no_of_buckets) {
 	assert(no_of_buckets > 0);
@@ -33,7 +33,7 @@ hash_table new_hash_table(size_t no_of_buckets) {
 	return ht;
 }
 
-void hash_table_set_generic(hash_table ht, char *key, void *value, size_t size) {
+void hash_table_set_generic(hash_table ht, const char *key, const void *value, size_t size) {
 
 	assert(ht != NULL);
 	assert(key != NULL);
@@ -86,63 +86,63 @@ void hash_table_set_generic(hash_table ht, char *key, void *value, size_t size) 
 	}
 }
 
-void hash_table_set_char(hash_table ht, char *key, char data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_char(hash_table ht, const char *key, const char value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_uchar(hash_table ht, char *key, unsigned char data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_uchar(hash_table ht, const char *key, const unsigned char value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_short(hash_table ht, char *key, short data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_short(hash_table ht, const char *key, const short value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_ushort(hash_table ht, char *key, unsigned short data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_ushort(hash_table ht, const char *key, const unsigned short value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_int(hash_table ht, char *key, int data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_int(hash_table ht, const char *key, const int value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_uint(hash_table ht, char *key, unsigned int data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_uint(hash_table ht, const char *key, const unsigned int value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_long(hash_table ht, char *key, long data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_long(hash_table ht, const char *key, const long value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_ulong(hash_table ht, char *key, unsigned long data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_ulong(hash_table ht, const char *key, const unsigned long value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_long_long(hash_table ht, char *key, long long data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_long_long(hash_table ht, const char *key, const long long value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_ulong_long(hash_table ht, char *key, unsigned long long data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_ulong_long(hash_table ht, const char *key, const unsigned long long value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_float(hash_table ht, char *key, float data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_float(hash_table ht, const char *key, const float value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_double(hash_table ht, char *key, double data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_double(hash_table ht, const char *key, const double value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_long_double(hash_table ht, char *key, long double data) {
-	hash_table_set_generic(ht, key, &data, sizeof(data));
+void hash_table_set_long_double(hash_table ht, const char *key, const long double value) {
+	hash_table_set_generic(ht, key, &value, sizeof(value));
 }
 
-void hash_table_set_string(hash_table ht, char *key, char *data) {
-	hash_table_set_generic(ht, key, data, strlen(data) + 1);
+void hash_table_set_string(hash_table ht, const char *key, const char *value) {
+	hash_table_set_generic(ht, key, value, strlen(value) + 1);
 }
 
-bool hash_table_is_set(hash_table ht, char *key) {
+bool hash_table_is_set(hash_table ht, const char *key) {
 
 	assert(ht != NULL);
 	assert(key != NULL);
@@ -173,7 +173,7 @@ bool hash_table_is_set(hash_table ht, char *key) {
 	return false;
 }
 
-void* hash_table_get(hash_table ht, char *key) {
+void* hash_table_get(hash_table ht, const char *key) {
 
 	assert(ht != NULL);
 	assert(key != NULL);
@@ -198,63 +198,63 @@ void* hash_table_get(hash_table ht, char *key) {
 	return p->value;
 }
 
-char hash_table_get_char(hash_table ht, char *key) {
+char hash_table_get_char(hash_table ht, const char *key) {
 	return *(char *)hash_table_get(ht, key);
 }
 
-unsigned char hash_table_get_uchar(hash_table ht, char *key) {
+unsigned char hash_table_get_uchar(hash_table ht, const char *key) {
 	return *(unsigned char *)hash_table_get(ht, key);
 }
 
-short hash_table_get_short(hash_table ht, char *key) {
+short hash_table_get_short(hash_table ht, const char *key) {
 	return *(short *)hash_table_get(ht, key);
 }
 
-unsigned short hash_table_get_ushort(hash_table ht, char *key) {
+unsigned short hash_table_get_ushort(hash_table ht, const char *key) {
 	return *(unsigned short *)hash_table_get(ht, key);
 }
 
-int hash_table_get_int(hash_table ht, char *key) {
+int hash_table_get_int(hash_table ht, const char *key) {
 	return *(int *)hash_table_get(ht, key);
 }
 
-unsigned int hash_table_get_uint(hash_table ht, char *key) {
+unsigned int hash_table_get_uint(hash_table ht, const char *key) {
 	return *(unsigned int *)hash_table_get(ht, key);
 }
 
-long hash_table_get_long(hash_table ht, char *key) {
+long hash_table_get_long(hash_table ht, const char *key) {
 	return *(long *)hash_table_get(ht, key);
 }
 
-unsigned long hash_table_get_ulong(hash_table ht, char *key) {
+unsigned long hash_table_get_ulong(hash_table ht, const char *key) {
 	return *(unsigned long *)hash_table_get(ht, key);
 }
 
-long long hash_table_get_long_long(hash_table ht, char *key) {
+long long hash_table_get_long_long(hash_table ht, const char *key) {
 	return *(long long *)hash_table_get(ht, key);
 }
 
-unsigned long long hash_table_get_ulong_long(hash_table ht, char *key) {
+unsigned long long hash_table_get_ulong_long(hash_table ht, const char *key) {
 	return *(unsigned long long *)hash_table_get(ht, key);
 }
 
-float hash_table_get_float(hash_table ht, char *key) {
+float hash_table_get_float(hash_table ht, const char *key) {
 	return *(float *)hash_table_get(ht, key);
 }
 
-double hash_table_get_double(hash_table ht, char *key) {
+double hash_table_get_double(hash_table ht, const char *key) {
 	return *(double *)hash_table_get(ht, key);
 }
 
-long double hash_table_get_long_double(hash_table ht, char *key) {
+long double hash_table_get_long_double(hash_table ht, const char *key) {
 	return *(long double *)hash_table_get(ht, key);
 }
 
-char* hash_table_get_string(hash_table ht, char *key) {
+char* hash_table_get_string(hash_table ht, const char *key) {
 	return hash_table_get(ht, key);
 }
 
-void* hash_table_unset(hash_table ht, char *key) {
+void* hash_table_unset(hash_table ht, const char *key) {
 
 	assert(ht != NULL);
 	assert(key != NULL);
@@ -292,98 +292,98 @@ void* hash_table_unset(hash_table ht, char *key) {
 	return value;
 }
 
-char hash_table_unset_char(hash_table ht, char *key) {
+char hash_table_unset_char(hash_table ht, const char *key) {
 	char *data = hash_table_unset(ht, key);
 	char return_data = *data;
 	free(data);
 	return return_data;
 }
 
-unsigned char hash_table_unset_uchar(hash_table ht, char *key) {
+unsigned char hash_table_unset_uchar(hash_table ht, const char *key) {
 	unsigned char *data = hash_table_unset(ht, key);
 	unsigned char return_data = *data;
 	free(data);
 	return return_data;
 }
 
-short hash_table_unset_short(hash_table ht, char *key) {
+short hash_table_unset_short(hash_table ht, const char *key) {
 	short *data = hash_table_unset(ht, key);
 	short return_data = *data;
 	free(data);
 	return return_data;
 }
 
-unsigned short hash_table_unset_ushort(hash_table ht, char *key) {
+unsigned short hash_table_unset_ushort(hash_table ht, const char *key) {
 	unsigned short *data = hash_table_unset(ht, key);
 	unsigned short return_data = *data;
 	free(data);
 	return return_data;
 }
 
-int hash_table_unset_int(hash_table ht, char *key) {
+int hash_table_unset_int(hash_table ht, const char *key) {
 	int *data = hash_table_unset(ht, key);
 	int return_data = *data;
 	free(data);
 	return return_data;
 }
 
-unsigned int hash_table_unset_uint(hash_table ht, char *key) {
+unsigned int hash_table_unset_uint(hash_table ht, const char *key) {
 	unsigned int *data = hash_table_unset(ht, key);
 	unsigned int return_data = *data;
 	free(data);
 	return return_data;
 }
 
-long hash_table_unset_long(hash_table ht, char *key) {
+long hash_table_unset_long(hash_table ht, const char *key) {
 	long *data = hash_table_unset(ht, key);
 	long return_data = *data;
 	free(data);
 	return return_data;
 }
 
-unsigned long hash_table_unset_ulong(hash_table ht, char *key) {
+unsigned long hash_table_unset_ulong(hash_table ht, const char *key) {
 	unsigned long *data = hash_table_unset(ht, key);
 	unsigned long return_data = *data;
 	free(data);
 	return return_data;
 }
 
-long long hash_table_unset_long_long(hash_table ht, char *key) {
+long long hash_table_unset_long_long(hash_table ht, const char *key) {
 	long long *data = hash_table_unset(ht, key);
 	long long return_data = *data;
 	free(data);
 	return return_data;
 }
 
-unsigned long long hash_table_unset_ulong_long(hash_table ht, char *key) {
+unsigned long long hash_table_unset_ulong_long(hash_table ht, const char *key) {
 	unsigned long long *data = hash_table_unset(ht, key);
 	unsigned long long return_data = *data;
 	free(data);
 	return return_data;
 }
 
-float hash_table_unset_float(hash_table ht, char *key) {
+float hash_table_unset_float(hash_table ht, const char *key) {
 	float *data = hash_table_unset(ht, key);
 	float return_data = *data;
 	free(data);
 	return return_data;
 }
 
-double hash_table_unset_double(hash_table ht, char *key) {
+double hash_table_unset_double(hash_table ht, const char *key) {
 	double *data = hash_table_unset(ht, key);
 	double return_data = *data;
 	free(data);
 	return return_data;
 }
 
-long double hash_table_unset_long_double(hash_table ht, char *key) {
+long double hash_table_unset_long_double(hash_table ht, const char *key) {
 	long double *data = hash_table_unset(ht, key);
 	long double return_data = *data;
 	free(data);
 	return return_data;
 }
 
-char* hash_table_unset_string(hash_table ht, char *key) {
+char* hash_table_unset_string(hash_table ht, const char *key) {
 	return hash_table_unset(ht, key);
 }
 
@@ -461,7 +461,7 @@ float hash_table_get_grow_factor(hash_table ht) {
 }
 
 // https://stackoverflow.com/questions/7666509/hash-function-for-string
-size_t hash(char *str) {
+size_t hash(const char *str) {
 	size_t hash = 5381;
 	size_t c;
 
