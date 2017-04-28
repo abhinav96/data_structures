@@ -276,7 +276,7 @@ void* hash_table_unset(hash_table ht, const char *key) {
 	}
 
 	assert(strcmp(key, p->key) == 0);
-	linked_list_remove(bucket_list, i - 1);
+	linked_list_remove(bucket_list, i);
 	free(p->key);
 	void *value = p->value;
 	free(p);
@@ -475,7 +475,7 @@ void hash_table_destroy(hash_table ht) {
 	if (ht == NULL) {
 		return;
 	}
-	for (int i = 0; i < ht->no_of_buckets; ++i) {
+	for (size_t i = 0; i < ht->no_of_buckets; ++i) {
 		if (ht->buckets[i] != NULL) {
 			while (linked_list_length(ht->buckets[i])) {
 				struct pair *temp_pair = linked_list_remove(ht->buckets[i], 0);
@@ -486,5 +486,6 @@ void hash_table_destroy(hash_table ht) {
 			linked_list_destroy(ht->buckets[i]);
 		}
 	}
+	free(ht->buckets);
 	free(ht);
 }
